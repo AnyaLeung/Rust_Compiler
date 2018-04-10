@@ -1,0 +1,20 @@
+/* Sigma.rust
+    *
+     * Compute sum = 1 + 2 + ... + n
+      */
+
+fn main() {
+      // variables
+      let n = 10;
+        let mut sum = 0;
+          let mut index = 0;
+              
+            while (index <= n) {
+                    sum = sum + index;
+                        index = index + 1;
+                          } 
+              print "The sum is ";
+                println sum;
+}
+            }
+}

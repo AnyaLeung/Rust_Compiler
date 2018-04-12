@@ -12,7 +12,63 @@ letter  [A-Za-z]
 
 %%
  /*keywords--almost_finish*/
+"as" {printf("<'as'>");}
+"break" {printf("<'break'>");}
+"const" {printf("<'const'>");}
+"continue" {printf("<'continue'>");}
+"crate" {printf("<'crate'>");}
+"else" {printf("<'else'>");}
+"enum" {printf("<'enum'>");}
+"extern" {printf("<'extern'>");}
+"false" {printf("<'false'>");}
 "fn" {printf("<'fn'>");}
+"for" {printf("<'for'>");}
+"if" {printf("<'if'>");}
+"impl" {printf("<'impl'>");}
+"in" {printf("<'in'>");}
+"let" {printf("<'let'>");}
+"loop" {printf("<'loop'>");}
+"match" {printf("<'match'>");}
+"mod" {printf("<'mod'>");}
+"move" {printf("<'move'>");}
+"mut" {printf("<'mut'>");}
+"pub" {printf("<'pub'>");}
+"ref" {printf("<'ref'>");}
+"return" {printf("<'return'>");}
+"Self" {printf("<'Self'>");}
+"self" {printf("<'self'>");}
+"static" {printf("<'static'>");}
+"struct" {printf("<'struct'>");}
+"super" {printf("<'super'>");}
+"trait" {printf("<'trait'>");}
+"true" {printf("<'true'>");}
+"type" {printf("<'unsafe'>");}
+"unsafe" {printf("<'unsafe'>");}
+"use" {printf("<'use'>");}
+"where" {printf("<'where'>");}
+"while" {printf("<'while'>");}
+"abstract" {printf("<'abstract'>");}
+"alignof" {printf("<'alignof'>");}
+"become" {printf("<'become'>");}
+"box" {printf("<'box'>");}
+"do" {printf("<'do'>");}
+"final" {printf("<'final'>");}
+"macro" {printf("<'macro'>");}
+"offsetof" {printf("<'offsetof'>");}
+"override" {printf("<'override'>");}
+"priv" {printf("<'priv'>");}
+"proc" {printf("<'proc'>");}
+"pure" {printf("<'pure'>");}
+"sizeof" {printf("<'sizeof'>");}
+"typeof" {printf("<'typeof'>");}
+"unsized" {printf("<'unsized'>");}
+"virtual" {printf("<'virtual'>");}
+"yield" {printf("<'yield'>");}
+ /*"" {printf("<''>");} */
+"(" {printf("<'('>");}
+")" {printf("<')'>");}
+
+
  /*
 "(" {printf(" <' );}
 ")" {printf(" <' );}
@@ -20,23 +76,6 @@ letter  [A-Za-z]
 "}" {printf("<'
 ???
  */
-"if" {printf("<'if'>");}
-"else" {printf("<'else'>");}
-"break" {printf("<'break'>");}
-"continue" {printf("<'continue'>");}
-"extern" {printf("<'extern'>");}
-"while" {printf("<'while'>");}
-"loop" {printf("<'loop'>");}
-"static" {printf("<'static'>");}
-"struct" {printf("<'struct'>");}
-"let" {printf("<'let'>");}
-"mut" {printf("<'mut'>");}
-"type" {printf("<'type"'>");}
-"true" {printf("<'true'>");}
-"false" {printf("<'false'>");}
-"for" {printf("<'for'>");}
-"in" {printf("<'in'>");}
-"return" {printf("<'return'>");}
  /* int? */
  /*{}, "" what?*/
 

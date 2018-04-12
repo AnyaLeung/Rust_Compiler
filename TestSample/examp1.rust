@@ -15,12 +15,12 @@ fn add(a:int, b:int) -> int //?
 // main function
 fn main() 
 {
-      c = add(a, 10);
-        if (c > 10) {
-                print -c;
-                  }
-          else {
-                  print c;
-                    }
-            println ("Hello World");
+    c = add(a, 10);
+    if (c > 10) {
+        print -c;
+    }
+    else {
+        print c;
+    }
+    println ("Hello World");
 }

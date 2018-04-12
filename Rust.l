@@ -64,9 +64,13 @@ letter  [A-Za-z]
 "unsized" {printf("<'unsized'>");}
 "virtual" {printf("<'virtual'>");}
 "yield" {printf("<'yield'>");}
- /*"" {printf("<''>");} */
+
 "(" {printf("<'('>");}
 ")" {printf("<')'>");}
+"{" {printf("<'{'>");}
+"}" {printf("<'}'>");}
+"[" {printf("<'['>");}
+"]" {printf("<']'>");}
 
 
  /*
@@ -91,9 +95,10 @@ letter  [A-Za-z]
 ">" 
 
  /*id
-   *includes function name
+   *includes function name ???
+   <ID: main>
  */
-(letter)(letter|digit)*
+{(letter)(letter|digit)*} {printf("<ID: %c>", yytext);}
 
 
 \n {

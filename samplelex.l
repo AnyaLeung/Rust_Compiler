@@ -6,28 +6,25 @@
 
 #define MAX_LINE_LENG 256
 
-    int linenum = 1;
-    char buf[MAX_LINE_LENG];
-    %}
+int linenum = 1;
+char buf[MAX_LINE_LENG];
+%}
 
-    %%
-    "("     {token('(');}
+%%
+"("     {token('(');}
     
-    \n      {
-                LIST;
-                        printf("%d: %s", linenum++, buf);
-                                buf[0] = '\0';
-                                        }
+\n      {
+        LIST;
+        printf("%d: %s", linenum++, buf);
+        buf[0] = '\0';
+        }
 
 [ \t]*  {LIST;}
 
-.       {
-            LIST;
-                    printf("%d:%s\n", linenum+1, buf);
-                            printf("bad character:'%s'\n",yytext);
-                                    exit(-1);
-                                            }
+.   {
+    LIST;
+    printf("%d:%s\n", linenum+1, buf);
+    printf("bad character:'%s'\n",yytext);
+    exit(-1);
+    }
 %%
-}
-    }')')}")"
-}

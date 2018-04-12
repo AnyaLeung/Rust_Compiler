@@ -16,6 +16,7 @@ digit   [0-9]
 real -?(({digit}+)|({digit}*"."{digit}+)([Ee][+-]?{digit}+)?)
 whitespace [ \t]+
 integer -?({digit}+)
+ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 
 %%
  /*keywords--almost_finish*/
@@ -91,6 +92,8 @@ integer -?({digit}+)
 
 \"({letter}*)\" {tokenString("string", yytext);}
 
+{ID} {tokenString("ID", yytext);}
+ /*what if here's a 3abc cout <int:3> <ID:abc> ???*/
 %%
 
  /*comments in lex starts with a whitespace*/

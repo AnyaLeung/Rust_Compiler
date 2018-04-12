@@ -4,6 +4,7 @@
 #define token(t) {LIST; printf("<%s>\n", t);}
 #define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", t, i);}
 #define tokenString(t,s) {LIST; printf("<%s:%s>\n", t, s);}
+#define tokenOp(o) {LIST; printf("<op: %s>\n", o);}
 #define MAX_LINE_LENG 256
 
 int linenum = 1;
@@ -15,6 +16,7 @@ digit   [0-9]
 real -?(({digit}+)|({digit}*"."{digit}+)([Ee][+-]?{digit}+)?)
 integer -?{digit}+ 
 whitespace [ \t]+
+ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 
 %%
  /*keywords--optimizing? how deal with print?*/
@@ -78,7 +80,63 @@ whitespace [ \t]+
 "[" {token("[");}
 "]" {token("]");}
 
- /*signs*/
+
+ /* number--ok */
+{integer} {tokenInteger("int", atoi(yytext));}
+{real} {token("real");}
+ /*int*/
+
+ /* string--ok */
+\"({letter}*)\" {tokenString("str", yytext);}
+
+ /* ID--ok*/
+ /*what if here's a 3abc cout <int:3> <ID:abc> ???*/
+{ID} {tokenString("ID", yytext);}
+
+ /* operators */
+"!" {tokenOp(yytext);}
+"!=" {tokenOp(yytext);}
+"%" {tokenOp(yytext);}
+"%=" {tokenOp(yytext);}
+"&" {tokenOp(yytext);}
+"&=" {tokenOp(yytext);}
+"&&" {tokenOp(yytext);}
+"*" {tokenOp(yytext);}
+"*=" {tokenOp(yytext);}
+"+" {tokenOp(yytext);}
+"+=" {tokenOp(yytext);}
+"," {tokenOp(yytext);}
+"-" {tokenOp(yytext);}
+"-=" {tokenOp(yytext);}
+"->" {tokenOp(yytext);}
+"." {tokenOp(yytext);}
+".." {tokenOp(yytext);}
+"..." {tokenOp(yytext);}
+"/" {tokenOp(yytext);}
+"/=" {tokenOp(yytext);}
+":" {tokenOp(yytext);} 
+";" {tokenOp(yytext);}
+"<<" {tokenOp(yytext);}
+"<<=" {tokenOp(yytext);}
+"<" {tokenOp(yytext);}
+"<=" {tokenOp(yytext);}
+"=" {tokenOp(yytext);}
+"==" {tokenOp(yytext);}
+"=>" {tokenOp(yytext);}
+">" {tokenOp(yytext);}
+">=" {tokenOp(yytext);}
+">>" {tokenOp(yytext);}
+">>=" {tokenOp(yytext);}
+"@" {tokenOp(yytext);}
+"^" {tokenOp(yytext);}
+"^=" {tokenOp(yytext);}
+"|" {tokenOp(yytext);}
+"|=" {tokenOp(yytext);}
+"||" {tokenOp(yytext);}
+"_" {tokenOp(yytext);}
+"?" {tokenOp(yytext);}
+
+ /*other signs*/
 "\n" {
     LIST;
     printf("%d:%s", linenum++, buf);
@@ -86,35 +144,6 @@ whitespace [ \t]+
 }
 
 [ \t]* {LIST;}
-
- /* number--ok */
-{integer} {tokenInteger("integer", atoi(yytext));}
-{real} {token("real");}
- /*int*/
-
- /* string--ok */
-\"({letter}*)\" {tokenString("string", yytext);}
-
- /*operator--?
-">" 
-
- id
-   *includes function name ???
-   <ID: main>
- 
-({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+) {printf("<ID: %c>", yytext);}
-*/
-
-
-
- /*
-"\n" {
-    List;
-    printf("%d: %s", linenum++, buf);
-    buf[0] = '\0';
-   }
-   */
-
 %%
 
  /*comments in lex starts with a whitespace*/

@@ -4,13 +4,15 @@
 #define token(t) {LIST; printf("<%s>\n", t);}
 #define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", t, i);}
 #define tokenString(t,s) {LIST; printf("<%s:%s>\n", t, s);}
-#define tokenOp(o) {LIST; printf("<op: %s>\n", o);}
+#define tokenOp(o) {LIST; printf("<op:'%s'>\n", o);}
 #define MAX_LINE_LENG 256
 
 int linenum = 1;
+int colnum = 1;
 char buf[MAX_LINE_LENG];
 %}
 
+ /* didn't write comments part and opt string part*/
 letter [A-Za-z]
 digit   [0-9]       
 real -?(({digit}+)|({digit}*"."{digit}+)([Ee][+-]?{digit}+)?)
@@ -80,13 +82,13 @@ ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 "[" {token("[");}
 "]" {token("]");}
 
-
  /* number--ok */
+ /*how to deal with int overflow?*/
 {integer} {tokenInteger("int", atoi(yytext));}
 {real} {token("real");}
- /*int*/
 
  /* string--ok */
+ /* <str> meaning? */
 \"({letter}*)\" {tokenString("str", yytext);}
 
  /* ID--ok*/
@@ -143,7 +145,7 @@ ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
     buf[0] = '\0';
 }
 
-[ \t]* {LIST;}
+{whitespace} {LIST;}
 %%
 
  /*comments in lex starts with a whitespace*/

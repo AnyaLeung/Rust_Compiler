@@ -1,0 +1,26 @@
+/*
+    * Example with Functions
+     */
+
+// variables
+let mut c; //?
+let mut a = 5; //?
+    
+// function declaration
+fn add(a:int, b:int) -> int //?
+{
+      return a+b; // return ? 
+}
+    
+// main function
+fn main() 
+{
+      c = add(a, 10);
+        if (c > 10) {
+                print -c;
+                  }
+          else {
+                  print c;
+                    }
+            println ("Hello World");
+}

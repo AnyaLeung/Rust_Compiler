@@ -7,6 +7,6 @@
 * Use lex & yacc.
 
 ***
-
-* ProjectEin: To generate token, use `./make.sh` to generate lex.yy.c and a.out.
+## ProjectEin
+* Use `./make.sh` to generate lex.yy.c and a.out.
 * Then use `./a.out` to input your rust program and get tokens.

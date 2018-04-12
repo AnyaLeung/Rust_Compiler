@@ -2,8 +2,8 @@
 #include <stdio.h>
 #define LIST  strcat(buf, yytext)
 #define token(t) {LIST; printf("<%s>\n", t);}
-#define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", "t", i);}
-#define tokenString(t,s) {LIST; printf("<%s:%s\n", t, s);}
+#define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", t, i);}
+#define tokenString(t,s) {LIST; printf("<%s:%s>\n", t, s);}
 #define MAX_LINE_LENG 256
 
 int linenum = 1;
@@ -13,15 +13,11 @@ char buf[MAX_LINE_LENG];
 letter [A-Za-z]
 digit   [0-9]       
 real -?(({digit}+)|({digit}*"."{digit}+)([Ee][+-]?{digit}+)?)
+integer -?{digit}+ 
 whitespace [ \t]+
- /* integer -?{digit}+ 
-  plain_real -?{digit}+"."{digit}+
-  expreal -?{digit}*"."{digit}+[Ee][+-]?{digit}+
-  real {integer}|{plain_real}|{expreal}
- */
 
 %%
- /*keywords--almost_finish*/
+ /*keywords--optimizing? how deal with print?*/
 "as" {token("as");}
 "break" {token("break");}
 "const" {token("const");}
@@ -35,7 +31,7 @@ whitespace [ \t]+
 "for" {token("for");}
 "if" {token("if");}
 "impl" {token("impl");}
-"in" {token("in");}
+ /* "in" {token("in");}  how to make sure not match printf*/
 "let" {token("let");}
 "loop" {token("loop");}
 "match" {token("match");}
@@ -77,27 +73,27 @@ whitespace [ \t]+
 
 "(" {token("(");}
 ")" {token(")");}
-"{" 
+"{" {token("{");}
 "}" {token("}");}
 "[" {token("[");}
 "]" {token("]");}
 
-
  /*signs*/
- /*
-\n {
+"\n" {
     LIST;
     printf("%d:%s", linenum++, buf);
     buf[0] = '\0';
 }
 
-[  \t]* {LIST;}
+[ \t]* {LIST;}
 
- /*string--almost
-"{}" {printf("<string>");}
+ /* number--ok */
+{integer} {tokenInteger("integer", atoi(yytext));}
+{real} {token("real");}
+ /*int*/
 
- /*digit--almost
--?((digit+)|(digit*\.digit+)([eE][-+]?digit+)?)i {printf("<number>");}
+ /* string--ok */
+\"({letter}*)\" {tokenString("string", yytext);}
 
  /*operator--?
 ">" 

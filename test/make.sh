@@ -1,5 +1,5 @@
 #!/bin/bash
-lex rust.lex
+lex test.lex
 echo "get lex.yy.c"
 gcc lex.yy.c -ll
 echo "compile into a.out already"

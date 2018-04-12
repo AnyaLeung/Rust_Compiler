@@ -1,10 +1,8 @@
-# Compiler Design 
-* Project in ntust, with book Compilers: Principles, Techniques, and Tools.
+# COMPILER
+* Project in NTUST 106-2, text book `Compilers: Principles, Techniques, and Tools` and `LEX and YACC`.
 * Platform: Ubuntu 16.04LTS
 * Mainly implement front-end part in a Rust compiler. 
-(~~writing scanner part
-  now~~
-* Use lex & yacc.
+(~~almost finish scanner part now~~
 
 ***
 ## ProjectEin

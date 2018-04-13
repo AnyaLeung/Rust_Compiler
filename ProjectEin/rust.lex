@@ -11,6 +11,7 @@
 int linenum = 1;
  /* int colnum = 1; */
 char buf[MAX_LINE_LENG];
+char strbuf[MAX_LINE_LENG];
 %}
 
  /* state */
@@ -75,11 +76,32 @@ booleans "true"|"false"
 {ID} {tokenString("ID", yytext);}
 
 
- /* string--not! */
+ /* string--ok */
  /* "ab""ab" = string ab"ab */
-\"({letter}*)\" {tokenString("str", yytext);}
+<INITIAL>["] {
+    LIST;
+    strbuf[0] = '\0';
+    BEGIN STR;
+}
 
-  /* single line comments */
+<STR>\"\" {
+    LIST;
+    strcat(strbuf, "\"");
+}
+
+<STR>[^"]* {
+    LIST;
+    strcat(strbuf, yytext);
+}
+
+<STR>["] {
+    BEGIN INITIAL;
+    tokenString("string", strbuf);
+}
+ /* why use buf here makes <string:abc"> ???*/
+
+ /*comments--ok*/
+ /* single line comments */
 <INITIAL>"//" {
     LIST; 
     BEGIN SIG_COMMENT;

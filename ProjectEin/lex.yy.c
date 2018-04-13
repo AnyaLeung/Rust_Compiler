@@ -606,7 +606,7 @@ int Insert(string s){
     (st->M).insert(pair<string,int>(s, st->size ));        
     (st->V).push_back(s);
     return (st->size)++;
-}
+    }
 
 int LookUp(string s){
     if ((st->M).find(s)==(st->M).end()){
@@ -620,16 +620,17 @@ int LookUp(string s){
 int Dump(void){
     for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){
         cout << *it << endl;
-    }
+        }
     return (st->V).size();
-}
+    }
 /* state */
 
 
 
 /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
+booleans "true"|"false"
 */
-#line 633 "lex.yy.c"
+#line 634 "lex.yy.c"
 
 #define INITIAL 0
 #define SIG_COMMENT 1
@@ -853,7 +854,7 @@ YY_DECL
 #line 76 "rust.lex"
 
  /* ops and delimiters--ok */
-#line 857 "lex.yy.c"
+#line 858 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1087,9 +1088,9 @@ case 35:
 YY_RULE_SETUP
 #line 118 "rust.lex"
 {
-    Insert(yytext);
-    tokenString("ID", yytext);
-}
+         Insert(yytext);
+         tokenString("ID", yytext);
+     }
 	YY_BREAK
 /* string--ok */
 /* "ab""ab" = string ab"ab */
@@ -1098,17 +1099,17 @@ YY_RULE_SETUP
 #line 125 "rust.lex"
 {
     LIST;
-    strbuf[0] = '\0';
-    BEGIN STR;
-}
+        strbuf[0] = '\0';
+            BEGIN STR;
+            }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 131 "rust.lex"
 {
     LIST;
-    strcat(strbuf, "\"");
-}
+        strcat(strbuf, "\"");
+        }
 	YY_BREAK
 case 38:
 /* rule 38 can match eol */
@@ -1116,17 +1117,17 @@ YY_RULE_SETUP
 #line 136 "rust.lex"
 {
     LIST;
-    strcat(strbuf, yytext);
-}
+        strcat(strbuf, yytext);
+        }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 141 "rust.lex"
 {
     BEGIN INITIAL;
-    tokenString("string", strbuf);
-    strbuf[0] = '\0';
-}
+        tokenString("string", strbuf);
+            strbuf[0] = '\0';
+            }
 	YY_BREAK
 /* why use buf here makes <string:abc"> ???*/
 /*comments--ok*/
@@ -1222,7 +1223,7 @@ YY_RULE_SETUP
 #line 202 "rust.lex"
 ECHO;
 	YY_BREAK
-#line 1226 "lex.yy.c"
+#line 1227 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(SIG_COMMENT):
 case YY_STATE_EOF(MUL_COMMENT):

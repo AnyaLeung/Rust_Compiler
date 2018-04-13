@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <algorithm>
 #include <vector>
 using namespace std;
 
@@ -18,7 +19,53 @@ int linenum = 1;
 char buf[MAX_LINE_LENG];
 char strbuf[MAX_LINE_LENG];
 
+class SymbolTable{
+    public:
+        vector<string> V;
+        map<string, int> M;
+        int size;
+};
+
 sym_t* st;
+
+ /* functions */
+sym_t* Create(void){
+    st = new SymbolTable();
+    st->size = 0;
+}
+
+ /* how to deal with different x ???*/
+int Insert(string s){
+    /*
+    if(std::find((st->V).begin(), (st->V).end(), s)!=(st->V).end()){
+        return -1;
+        }
+     //already in symbol table
+    else{
+    */
+        for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){ 
+            (st->M).insert(pair<string,int>(s, st->size ));        
+            (st->V).push_back(s);
+            return (st->size)++;
+        }
+   // }
+}
+
+int LookUp(string s){
+    if ((st->M).find(s)==(st->M).end()){
+        return -1;
+    } //s not in map M's keys
+    else {
+        return (st->M)[s];
+    }
+}
+
+int Dump(void){
+    for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){
+        cout << *it << endl;
+    }
+    return (st->V).size();
+}
 %}
 
 /* state */
@@ -30,10 +77,10 @@ letter [A-Za-z]
 digit   [0-9]       
 real -?(({digit}+)|({digit}*"."{digit}+)([Ee][+-]?{digit}+)?)
 integer -?{digit}+ 
-whitespace [ \t]+
+whitespace [ \t]
 ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 delimiters ","|":"|";"|"{"|"}"|"["|"]"|"("|")"
-ops "+"|"-"|"*"|"/"|"++"|"--"|"%|"<"|<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
+ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
  /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
 booleans "true"|"false"
  */
@@ -81,7 +128,7 @@ booleans "true"|"false"
 
  /* ID--put into symbol table!! */
 {ID} {
-    st->Insert(yytext);
+    Insert(yytext);
     tokenString("ID", yytext);
 }
 
@@ -106,6 +153,7 @@ booleans "true"|"false"
 <STR>["] {
     BEGIN INITIAL;
     tokenString("string", strbuf);
+    strbuf[0] = '\0';
 }
  /* why use buf here makes <string:abc"> ???*/
 
@@ -119,6 +167,8 @@ booleans "true"|"false"
 <SIG_COMMENT>"\n" {
     LIST;
     PrintLine(buf);
+    buf[0] = '\0';
+    BEGIN INITIAL;
 }
 
 <SIG_COMMENT>. {
@@ -147,28 +197,27 @@ booleans "true"|"false"
 }
 
   /* other signs */
-. {
-    LIST;
-    printf("%d:%s\n", linenum, buf);
-    printf("bad character:'%s'\n", yytext);
-    exit(-1);
-}
-
 "\n" {
     LIST;
     PrintLine(buf);
     buf[0] = '\0';
 }
 
-{whitespace} {LIST;}
+{whitespace}* {LIST;}
+
+. {
+    LIST;
+    printf("%d:%s\n", linenum, buf);
+    printf("bad character:'%s'\n", yytext);
+    exit(-1);
+}
 %%
-
- /* functions */
-
 
  /*comments in lex starts with a whitespace*/
 int main(int argc, char *argv[]){
+    Create();
     yylex();
+    printf("\nSymbol Table: \n");
     Dump();
     fflush(yyout);
     exit(0);

@@ -37,7 +37,7 @@ int Insert(string s){
     (st->M).insert(pair<string,int>(s, st->size ));        
     (st->V).push_back(s);
     return (st->size)++;
-}
+    }
 
 int LookUp(string s){
     if ((st->M).find(s)==(st->M).end()){
@@ -51,12 +51,12 @@ int LookUp(string s){
 int Dump(void){
     for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){
         cout << *it << endl;
-    }
+        }
     return (st->V).size();
-}
+    }
 %}
 
-/* state */
+ /* state */
 %x SIG_COMMENT
 %x MUL_COMMENT
 %x  STR
@@ -69,9 +69,9 @@ whitespace [ \t]
 ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 delimiters ","|":"|";"|"{"|"}"|"["|"]"|"("|")"
 ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
- /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
-booleans "true"|"false"
- */
+    /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
+      booleans "true"|"false"
+     */
 
 %%
  /* ops and delimiters--ok */
@@ -116,33 +116,33 @@ booleans "true"|"false"
 
  /* ID--put into symbol table!! */
 {ID} {
-    Insert(yytext);
-    tokenString("ID", yytext);
-}
+         Insert(yytext);
+         tokenString("ID", yytext);
+     }
 
  /* string--ok */
  /* "ab""ab" = string ab"ab */
 <INITIAL>["] {
     LIST;
-    strbuf[0] = '\0';
-    BEGIN STR;
-}
+        strbuf[0] = '\0';
+            BEGIN STR;
+            }
 
 <STR>\"\" {
     LIST;
-    strcat(strbuf, "\"");
-}
+        strcat(strbuf, "\"");
+        }
 
 <STR>[^"]* {
     LIST;
-    strcat(strbuf, yytext);
-}
+        strcat(strbuf, yytext);
+        }
 
 <STR>["] {
     BEGIN INITIAL;
-    tokenString("string", strbuf);
-    strbuf[0] = '\0';
-}
+        tokenString("string", strbuf);
+            strbuf[0] = '\0';
+            }
  /* why use buf here makes <string:abc"> ???*/
 
  /*comments--ok*/

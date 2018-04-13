@@ -595,13 +595,43 @@ class SymbolTable{
 };
 
 sym_t* st;
+
+ /* functions */
+sym_t* Create(void){
+    st = new SymbolTable();
+    st->size = 0;
+}
+
+int Insert(string s){
+    (st->M).insert(pair<string,int>(s, st->size ));        
+    (st->V).push_back(s);
+    return (st->size)++;
+}
+
+int LookUp(string s){
+    if ((st->M).find(s)==(st->M).end()){
+        return -1;
+    } //s not in map M's keys
+    else {
+        return (st->M)[s];
+    }
+}
+
+int Dump(void){
+    for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){
+        cout << *it << endl;
+    }
+    return (st->V).size();
+}
+
+
 /* state */
 
 
 
 /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
 */
-#line 605 "lex.yy.c"
+#line 635 "lex.yy.c"
 
 #define INITIAL 0
 #define SIG_COMMENT 1
@@ -822,10 +852,10 @@ YY_DECL
 		}
 
 	{
-#line 48 "rust.lex"
+#line 78 "rust.lex"
 
  /* ops and delimiters--ok */
-#line 829 "lex.yy.c"
+#line 859 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -884,180 +914,180 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 50 "rust.lex"
+#line 80 "rust.lex"
 {token(yytext);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 51 "rust.lex"
+#line 81 "rust.lex"
 {token(yytext);}
 	YY_BREAK
 /* keywords--ok */
 case 3:
 YY_RULE_SETUP
-#line 54 "rust.lex"
+#line 84 "rust.lex"
 {token("BOOL");}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 55 "rust.lex"
+#line 85 "rust.lex"
 {token("BREAK");}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 56 "rust.lex"
+#line 86 "rust.lex"
 {token("CHAR");}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 57 "rust.lex"
+#line 87 "rust.lex"
 {token("CONTINUE");}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 58 "rust.lex"
+#line 88 "rust.lex"
 {token("DO");}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 59 "rust.lex"
+#line 89 "rust.lex"
 {token("ELSE");}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 60 "rust.lex"
+#line 90 "rust.lex"
 {token("ENUM");}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 61 "rust.lex"
+#line 91 "rust.lex"
 {token("EXTERN");}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 62 "rust.lex"
+#line 92 "rust.lex"
 {token("FALSE");}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 63 "rust.lex"
+#line 93 "rust.lex"
 {token("FLOAT");}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 64 "rust.lex"
+#line 94 "rust.lex"
 {token("FOR");}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 65 "rust.lex"
+#line 95 "rust.lex"
 {token("FN");}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 66 "rust.lex"
+#line 96 "rust.lex"
 {token("IF");}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 67 "rust.lex"
+#line 97 "rust.lex"
 {token("IN");}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 68 "rust.lex"
+#line 98 "rust.lex"
 {token("LET");}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 69 "rust.lex"
+#line 99 "rust.lex"
 {token("LOOP");}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 70 "rust.lex"
+#line 100 "rust.lex"
 {token("MATCH");}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 71 "rust.lex"
+#line 101 "rust.lex"
 {token("MUT");}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 72 "rust.lex"
+#line 102 "rust.lex"
 {token("PRINT");}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 73 "rust.lex"
+#line 103 "rust.lex"
 {token("PRINTLN");}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 74 "rust.lex"
+#line 104 "rust.lex"
 {token("PUB");}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 75 "rust.lex"
+#line 105 "rust.lex"
 {token("RETURN");}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 76 "rust.lex"
+#line 106 "rust.lex"
 {token("SELF");}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 77 "rust.lex"
+#line 107 "rust.lex"
 {token("STATIC");}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 78 "rust.lex"
+#line 108 "rust.lex"
 {token("STR");}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 79 "rust.lex"
+#line 109 "rust.lex"
 {token("STRUCT");}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 80 "rust.lex"
+#line 110 "rust.lex"
 {token("TRUE");}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 81 "rust.lex"
+#line 111 "rust.lex"
 {token("USE");}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 82 "rust.lex"
+#line 112 "rust.lex"
 {token("WHERE");}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 83 "rust.lex"
+#line 113 "rust.lex"
 {token("while");}
 	YY_BREAK
 /* numbers--ok */
 case 33:
 YY_RULE_SETUP
-#line 86 "rust.lex"
+#line 116 "rust.lex"
 {tokenInteger("int", atoi(yytext));} 
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 87 "rust.lex"
+#line 117 "rust.lex"
 {token("real");}
 	YY_BREAK
 /* ID--put into symbol table!! */
 case 35:
 YY_RULE_SETUP
-#line 90 "rust.lex"
+#line 120 "rust.lex"
 {
     Insert(yytext);
     tokenString("ID", yytext);
@@ -1067,7 +1097,7 @@ YY_RULE_SETUP
 /* "ab""ab" = string ab"ab */
 case 36:
 YY_RULE_SETUP
-#line 97 "rust.lex"
+#line 127 "rust.lex"
 {
     LIST;
     strbuf[0] = '\0';
@@ -1076,7 +1106,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 103 "rust.lex"
+#line 133 "rust.lex"
 {
     LIST;
     strcat(strbuf, "\"");
@@ -1085,7 +1115,7 @@ YY_RULE_SETUP
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 108 "rust.lex"
+#line 138 "rust.lex"
 {
     LIST;
     strcat(strbuf, yytext);
@@ -1093,7 +1123,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 113 "rust.lex"
+#line 143 "rust.lex"
 {
     BEGIN INITIAL;
     tokenString("string", strbuf);
@@ -1104,7 +1134,7 @@ YY_RULE_SETUP
 /* single line comments */
 case 40:
 YY_RULE_SETUP
-#line 121 "rust.lex"
+#line 151 "rust.lex"
 {
     LIST; 
     BEGIN SIG_COMMENT;
@@ -1113,7 +1143,7 @@ YY_RULE_SETUP
 case 41:
 /* rule 41 can match eol */
 YY_RULE_SETUP
-#line 126 "rust.lex"
+#line 156 "rust.lex"
 {
     LIST;
     PrintLine(buf);
@@ -1121,7 +1151,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 131 "rust.lex"
+#line 161 "rust.lex"
 {
     LIST;
 }
@@ -1129,7 +1159,7 @@ YY_RULE_SETUP
 /* multi line comments */
 case 43:
 YY_RULE_SETUP
-#line 136 "rust.lex"
+#line 166 "rust.lex"
 {
     LIST;
     BEGIN MUL_COMMENT;
@@ -1138,7 +1168,7 @@ YY_RULE_SETUP
 case 44:
 /* rule 44 can match eol */
 YY_RULE_SETUP
-#line 141 "rust.lex"
+#line 171 "rust.lex"
 {
     LIST;
     PrintLine(buf);
@@ -1147,7 +1177,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 147 "rust.lex"
+#line 177 "rust.lex"
 {
     LIST;
     BEGIN INITIAL;
@@ -1155,7 +1185,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 152 "rust.lex"
+#line 182 "rust.lex"
 {
     LIST;
 }
@@ -1163,7 +1193,7 @@ YY_RULE_SETUP
 /* other signs */
 case 47:
 YY_RULE_SETUP
-#line 157 "rust.lex"
+#line 187 "rust.lex"
 {
     LIST;
     printf("%d:%s\n", linenum, buf);
@@ -1174,7 +1204,7 @@ YY_RULE_SETUP
 case 48:
 /* rule 48 can match eol */
 YY_RULE_SETUP
-#line 164 "rust.lex"
+#line 194 "rust.lex"
 {
     LIST;
     PrintLine(buf);
@@ -1183,15 +1213,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 170 "rust.lex"
+#line 200 "rust.lex"
 {LIST;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 171 "rust.lex"
+#line 201 "rust.lex"
 ECHO;
 	YY_BREAK
-#line 1195 "lex.yy.c"
+#line 1225 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(SIG_COMMENT):
 case YY_STATE_EOF(MUL_COMMENT):
@@ -2195,37 +2225,10 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 171 "rust.lex"
+#line 201 "rust.lex"
 
 
 
- /* functions */
-sym_t* Create(void){
-    st = new SymbolTable();
-    st->size = 0;
-}
-
-int Insert(string s){
-    (st->M).insert(pair<string,int>(s, st->size ));        
-    (st->V).push_back(s);
-    return (st->size)++;
-}
-
-int LookUp(string s){
-    if ((st->M).find(s)==(st->M).end()){
-        return -1;
-    } //s not in map M's keys
-    else {
-        return (st->M)[s];
-    }
-}
-
-int Dump(void){
-    for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){
-        cout << *it << endl;
-    }
-    return (st->V).size();
-}
 
  /*comments in lex starts with a whitespace*/
 int main(int argc, char *argv[]){

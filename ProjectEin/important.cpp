@@ -45,12 +45,9 @@ int Dump(void){
 int main(void){
     Create();
 
-    cout << Insert("abc") << endl;
-    cout << Insert("def") << endl;
-    cout << Insert("ccc") << endl;
-    cout << Insert("asdfadsf") << endl;
-    cout << LookUp("ccc") << endl;
-    cout << LookUp("def") << endl;
+    cout << Insert("a") << endl;
+    cout << Insert("b") << endl;
+    cout << Insert("c") << endl;
     
     cout << Dump();
     return 0;

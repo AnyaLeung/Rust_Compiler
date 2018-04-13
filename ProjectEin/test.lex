@@ -18,44 +18,7 @@ int linenum = 1;
 char buf[MAX_LINE_LENG];
 char strbuf[MAX_LINE_LENG];
 
-class SymbolTable{
-    public:
-        vector<string> V;
-        map<string, int> M;
-        int size;
-};
-
 sym_t* st;
-
- /* functions */
-sym_t* Create(void){
-    st = new SymbolTable();
-    st->size = 0;
-}
-
-int Insert(string s){
-    (st->M).insert(pair<string,int>(s, st->size ));        
-    (st->V).push_back(s);
-    return (st->size)++;
-}
-
-int LookUp(string s){
-    if ((st->M).find(s)==(st->M).end()){
-        return -1;
-    } //s not in map M's keys
-    else {
-        return (st->M)[s];
-    }
-}
-
-int Dump(void){
-    for(std::vector<string>::iterator it=(st->V).begin(); it!=(st->V).end(); it++){
-        cout << *it << endl;
-    }
-    return (st->V).size();
-}
-
-
 %}
 
 /* state */
@@ -118,7 +81,7 @@ booleans "true"|"false"
 
  /* ID--put into symbol table!! */
 {ID} {
-    Insert(yytext);
+    st->Insert(yytext);
     tokenString("ID", yytext);
 }
 
@@ -199,6 +162,9 @@ booleans "true"|"false"
 
 {whitespace} {LIST;}
 %%
+
+ /* functions */
+
 
  /*comments in lex starts with a whitespace*/
 int main(int argc, char *argv[]){

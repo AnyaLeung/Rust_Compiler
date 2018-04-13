@@ -54,8 +54,6 @@ int Dump(void){
     }
     return (st->V).size();
 }
-
-
 %}
 
 /* state */
@@ -67,10 +65,10 @@ letter [A-Za-z]
 digit   [0-9]       
 real -?(({digit}+)|({digit}*"."{digit}+)([Ee][+-]?{digit}+)?)
 integer -?{digit}+ 
-whitespace [ \t]+
+whitespace [ \t]
 ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 delimiters ","|":"|";"|"{"|"}"|"["|"]"|"("|")"
-ops "+"|"-"|"*"|"/"|"++"|"--"|"%|"<"|<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
+ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
  /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
 booleans "true"|"false"
  */
@@ -143,6 +141,7 @@ booleans "true"|"false"
 <STR>["] {
     BEGIN INITIAL;
     tokenString("string", strbuf);
+    strbuf[0] = '\0';
 }
  /* why use buf here makes <string:abc"> ???*/
 
@@ -156,6 +155,8 @@ booleans "true"|"false"
 <SIG_COMMENT>"\n" {
     LIST;
     PrintLine(buf);
+    buf[0] = '\0';
+    BEGIN INITIAL;
 }
 
 <SIG_COMMENT>. {
@@ -184,25 +185,27 @@ booleans "true"|"false"
 }
 
   /* other signs */
-. {
-    LIST;
-    printf("%d:%s\n", linenum, buf);
-    printf("bad character:'%s'\n", yytext);
-    exit(-1);
-}
-
 "\n" {
     LIST;
     PrintLine(buf);
     buf[0] = '\0';
 }
 
-{whitespace} {LIST;}
+{whitespace}* {LIST;}
+
+. {
+    LIST;
+    printf("%d:%s\n", linenum, buf);
+    printf("bad character:'%s'\n", yytext);
+    exit(-1);
+}
 %%
 
  /*comments in lex starts with a whitespace*/
 int main(int argc, char *argv[]){
+    Create();
     yylex();
+    printf("\nSymbol Table: \n");
     Dump();
     fflush(yyout);
     exit(0);

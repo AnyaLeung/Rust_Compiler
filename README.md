@@ -7,4 +7,4 @@
 ***
 ## ProjectEin
 * Use `./make.sh` to generate lex.yy.c and a.out.
-* Then use `./a.out` to input your rust program and get tokens.
+* Then use `./a.out` or './a.out < filename' to input your rust program and get tokens.

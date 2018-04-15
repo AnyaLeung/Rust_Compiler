@@ -114,7 +114,7 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 {integer} {tokenInteger("int", atoi(yytext));} 
 {real} {token("real");}
 
- /* ID--put into symbol table!! */
+ /* ID--ok */
 {ID} {
          Insert(yytext);
          tokenString("ID", yytext);

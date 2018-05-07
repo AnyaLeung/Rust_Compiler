@@ -6,9 +6,9 @@
 using namespace std;
 
 #define LIST  strcat(buf, yytext)
-#define token(t) {LIST; printf("<%s>\n", t); return t;}
-#define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", t, i); yylval??}
-#define tokenString(t,s) {LIST; printf("<%s:%s>\n", t, s); return t;}
+#define token(t) {LIST; printf("<%s>\n", t);}
+#define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", t, i);}
+#define tokenString(t,s) {LIST; printf("<%s:%s>\n", t, s);}
 #define PrintLine(b) {printf("%d:%s", linenum++, buf);}
 #define MAX_LINE_LENG 256
 #define SymbolTable sym_t
@@ -74,8 +74,12 @@ whitespace [ \t]
 ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 delimiters ","|":"|";"|"{"|"}"|"["|"]"|"("|")"
 ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
+    /*keywords "bool"|"break"|"char"|"continue"|"do"|"else"|"enum"|"extern"|"false"|"float"|"for"|"fn"|"if"|"in"|"let"|"loop"|"match"|"match"|"mut"|"print"|"println"|"pub"|"return"|"self"|"static"|"str"|"struct"|"true"|"use"|"where"|"while"
+      booleans "true"|"false"
+     */
 
 %%
+ /* ops and delimiters--ok */
 {ops} {token(yytext);}
 {delimiters} {token(yytext);}
 

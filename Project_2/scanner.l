@@ -4,12 +4,17 @@
 #include <map>
 #include <vector>
 #include "symboltable.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "flex_memory_fix.h"
+#include "y.tab.h"
+#include <math.h>
 using namespace std;
 
 #define LIST  strcat(buf, yytext)
-#define token(t) {LIST; printf("<%s>\n", t);}
-#define tokenInteger(t,i) {LIST; printf("<%s:%d>\n", t, i);}
-#define tokenString(t,s) {LIST; printf("<%s:%s>\n", t, s);}
+#define token(t) {LIST; return yytext[0];}
+#define tokenInteger(t,i) {LIST; return yytext[0];}
+#define tokenString(t,s) {LIST; return yytext[0];}
 #define PrintLine(b) {printf("%d:%s", linenum++, buf);}
 #define MAX_LINE_LENG 256
 
@@ -45,7 +50,6 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 "else" {token("ELSE");}
 "enum" {token("ENUM");}
 "extern" {token("EXTERN");}
-"false" {token("FALSE");}
 "float" {token("FLOAT");}
 "for" {token("FOR");}
 "fn" {token("FN");}
@@ -63,18 +67,31 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 "static" {token("STATIC");}
 "str" {token("STR");}
 "struct" {token("STRUCT");}
-"true" {token("TRUE");}
 "use" {token("USE");}
 "where" {token("WHERE");}
 "while" {token("while");}
+"false" {
+    yyla.value = false;
+    token("FALSE");
+        }
+"true" {
+    yylval.bval = true;
+    token("TRUE");}
 
  /* numbers--ok */
-{integer} {tokenInteger("int", atoi(yytext));} 
-{real} {token("real");}
+{integer} {
+    yylval.val = atoi(yytext);
+    tokenInteger("int", atoi(yytext));
+          } 
+
+{real} {
+    yylval.dval = atof(yytext);
+    token("real");}
 
  /* ID--ok */
 {ID} {
          Insert(yytext);
+         yylval.sval = new string(yytext);
          tokenString("ID", yytext);
      }
 

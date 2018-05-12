@@ -1,5 +1,5 @@
 #!/bin/bash
-lex scanner.lex
+lex scanner.l
 echo "get lex.yy.c"
 g++ lex.yy.c -ll
 echo "compile into a.out already"

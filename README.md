@@ -2,7 +2,7 @@
 * Project in NTUST 106-2, textbook `Compilers: Principles, Techniques, and Tools` and `LEX and YACC`.
 * Platform: Ubuntu 16.04LTS
 * Mainly implement front-end part in a Rust compiler. 
-(~~Finish scanner part now~~
+(~~Finished scanner part and writing parser part now~~
 
 ***
 ## ProjectEin

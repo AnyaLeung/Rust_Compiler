@@ -6,7 +6,6 @@
 #include "symboltable.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "flex_memory_fix.h"
 #include "y.tab.h"
 #include <math.h>
 using namespace std;
@@ -42,57 +41,57 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 {delimiters} {token(yytext);}
 
  /* keywords--ok */
-"bool" {token("BOOL");}
-"break" {token("BREAK");}
-"char" {token("CHAR");}
-"continue" {token("CONTINUE");}
-"do" {token("DO");}
-"else" {token("ELSE");}
-"enum" {token("ENUM");}
-"extern" {token("EXTERN");}
-"float" {token("FLOAT");}
-"for" {token("FOR");}
-"fn" {token("FN");}
-"if" {token("IF");}
-"in" {token("IN");}
-"let" {token("LET");}
-"loop" {token("LOOP");}
-"match" {token("MATCH");}
-"mut" {token("MUT");}
-"print" {token("PRINT");}
-"println" {token("PRINTLN");}
-"pub" {token("PUB");}
-"return" {token("RETURN");}
-"self" {token("SELF");}
-"static" {token("STATIC");}
-"str" {token("STR");}
-"struct" {token("STRUCT");}
-"use" {token("USE");}
-"where" {token("WHERE");}
-"while" {token("while");}
+"bool" {token(BOOL);}
+"break" {token(BREAK);}
+"char" {token(CHAR);}
+"continue" {token(CONTINUE);}
+"do" {token(DO);}
+"else" {token(ELSE);}
+"enum" {token(ENUM);}
+"extern" {token(EXTERN);}
+"float" {token(FLOAT);}
+"for" {token(FOR);}
+"fn" {token(FN);}
+"if" {token(IF);}
+"in" {token(IN);}
+"let" {token(LET);}
+"loop" {token(LOOP);}
+"match" {token(MATCH);}
+"mut" {token(MUT);}
+"print" {token(PRINT);}
+"println" {token(PRINTLN);}
+"pub" {token(PUB);}
+"return" {token(RETURN);}
+"self" {token(SELF);}
+"static" {token(STATIC);}
+"str" {token(STR);}
+"struct" {token(STRUCT);}
+"use" {token(USE);}
+"where" {token(WHERE);}
+"while" {token(WHILE);}
 "false" {
-    yyla.value = false;
-    token("FALSE");
+    yylval.bval = false;
+    token(FALSE);
         }
 "true" {
     yylval.bval = true;
-    token("TRUE");}
+    token(TRUE);}
 
  /* numbers--ok */
 {integer} {
     yylval.val = atoi(yytext);
-    tokenInteger("int", atoi(yytext));
+    tokenInteger(INT, atoi(yytext));
           } 
 
 {real} {
     yylval.dval = atof(yytext);
-    token("real");}
+    token(REAL);}
 
  /* ID--ok */
 {ID} {
          Insert(yytext);
          yylval.sval = new string(yytext);
-         tokenString("ID", yytext);
+         tokenString(ID, yytext);
      }
 
  /* string--ok */

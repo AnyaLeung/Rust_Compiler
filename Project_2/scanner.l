@@ -22,7 +22,7 @@ char buf[MAX_LINE_LENG];
 char strbuf[MAX_LINE_LENG];
 %}
 
- /* state */
+/* state */
 %x SIG_COMMENT
 %x MUL_COMMENT
 %x STR_STA
@@ -34,49 +34,63 @@ integer -?{digit}+
 whitespace [ \t]
 ID ({letter}({letter}|{digit}|_)*)|(_({letter}|{digit}|_)+)
 delimiters ","|":"|";"|"{"|"}"|"["|"]"|"("|")"
-ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
+sig_ops "+"|"-"|"*"|"/"|"%"|"<"|">"|"!"|"="
+bin_ops "++"|"--"|">="|"<="|"=="|"!="|"&&"|"||"|"+="|"-="|"*="|"/="
 
 %%
-{ops} {token(yytext[0]);}
+{sig_ops} {token(yytext[0]);}
 {delimiters} {token(yytext[0]);}
 
- /* operator */
+ /* binary ops */
+"++" {token(SELF_INCRE);}
+"--" {token(SELF_DECRE);}
+">=" {token(GRE_EQU);}
+"<=" {token(SMA_EQU);}
+"==" {token(EQUAL_TO);}
+"!=" {token(NOT_EQUAL_TO);}
+"&&" {token(ANDAND);}
+"||" {token(OROR);}
+"+=" {token(ADD_SELF);}
+"-=" {token(MINUS_SELF);}
+"*=" {token(MUL_SELF);}
+"/=" {token(DIV_SELF);}
+
  /* keywords--ok */
-"bool" {token(BOOL);}
-"break" {token(BREAK);}
-"char" {token(CHAR);}
-"continue" {token(CONTINUE);}
-"do" {token(DO);}
-"else" {token(ELSE);}
-"enum" {token(ENUM);}
-"extern" {token(EXTERN);}
-"float" {token(FLOAT);}
-"for" {token(FOR);}
-"fn" {token(FN);}
-"if" {token(IF);}
-"in" {token(IN);}
-"let" {token(LET);}
-"loop" {token(LOOP);}
-"match" {token(MATCH);}
-"mut" {token(MUT);}
-"print" {token(PRINT);}
-"println" {token(PRINTLN);}
-"pub" {token(PUB);}
-"return" {token(RETURN);}
-"self" {token(SELF);}
-"static" {token(STATIC);}
-"str" {token(STR);}
-"struct" {token(STRUCT);}
-"use" {token(USE);}
-"where" {token(WHERE);}
-"while" {token(WHILE);}
+"bool" {token(KW_BOOL);}
+"break" {token(KW_BREAK);}
+"char" {token(KW_CHAR);}
+"continue" {token(KW_CONTINUE);}
+"do" {token(KW_DO);}
+"else" {token(KW_ELSE);}
+"enum" {token(KW_ENUM);}
+"extern" {token(KW_EXTERN);}
+"float" {token(KW_FLOAT);}
+"for" {token(KW_FOR);}
+"fn" {token(KW_FN);}
+"if" {token(KW_IF);}
+"in" {token(KW_IN);}
+"let" {token(KW_LET);}
+"loop" {token(KW_LOOP);}
+"match" {token(KW_MATCH);}
+"mut" {token(KW_MUT);}
+"print" {token(KW_PRINT);}
+"println" {token(KW_PRINTLN);}
+"pub" {token(KW_PUB);}
+"return" {token(KW_RETURN);}
+"self" {token(KW_SELF);}
+"static" {token(KW_STATIC);}
+"str" {token(KW_STR);}
+"struct" {token(KW_STRUCT);}
+"use" {token(KW_USE);}
+"where" {token(KW_WHERE);}
+"while" {token(KW_WHILE);}
 "false" {
     yylval.bval = false;
-    token(FALSE);
-        }
+    token(KW_FALSE);
+}
 "true" {
     yylval.bval = true;
-    token(TRUE);}
+    token(KW_TRUE);}
 
  /* numbers--ok */
 {integer} {

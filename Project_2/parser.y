@@ -25,16 +25,65 @@ int yylex();
 %token <bval> BOOL_VAL
 
 /* keywords */
-%token BOOL BREAK CHAR CONTINUE DO ELSE ENUM EXTERN FALSE FLOAT FOR FN IF IN INT LET LOOP MATCH MUT PRINT
-%token PRINTLN PUB RETURN SELF STATIC STR STRUCT TRUE USE WHERE WHILE
+%token KW_BOOL 
+%token KW_BREAK 
+%token KW_CHAR 
+%token KW_CONTINUE 
+%token KW_DO   
+%token KW_ELSE 
+%token KW_ENUM 
+%token KW_EXTERN 
+%token KW_FALSE 
+%token KW_FLOAT 
+%token KW_FOR 
+%token KW_FN 
+%token KW_IF 
+%token KW_IN 
+%token KW_LET 
+%token KW_LOOP 
+%token KW_MATCH 
+%token KW_MUT 
+%token KW_PRINT
+%token KW_PRINTLN 
+%token KW_PUB 
+%token KW_RETURN 
+%token KW_SELF 
+%token KW_STATIC 
+%token KW_STR 
+%token KW_STRUCT 
+%token KW_TRUE 
+%token KW_USE 
+%token KW_WHERE 
+%token KW_WHILE
+
+ /* binary ops */
+%token SELF_INCRE 
+%token SELF_DECRE
+%token GRE_EQU
+%token SMA_EQU
+%token EQUAL_TO
+%token NOT_EQUAL_TO
+%token ANDAND
+%token OROR
+%token ADD_SELF
+%token MINUS_SELF
+%token MUL_SELF
+%token DIV_SELF
+
+ /* precedence and associativity */
+ %left OROR 
+ %left ANDAND
+ %left '<' '>' NOT_EQUAL_TO GRE_EQU SMA_EQU EQUAL_TO
+ %left '+' '-' '|'
+ %left '*' '/' '%' '&'
+ %left '^'
+ %nonassoc UMINUS UPLUS
  /* yacc declarations */
 %%
  /* grammar rules */
-expr: expr'+'INT
-    |expr'-'INT
-    |INT
-    |BOOL
-    |BREAK
+expr: expr'+'INT_VAL
+    |expr'-'INT_VAL
+    |INT_VAL
     ;
 %%
  

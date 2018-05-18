@@ -50,37 +50,50 @@ extern int yydebug;
     STR_VAL = 260,
     ID_VAL = 261,
     BOOL_VAL = 262,
-    BOOL = 263,
-    BREAK = 264,
-    CHAR = 265,
-    CONTINUE = 266,
-    DO = 267,
-    ELSE = 268,
-    ENUM = 269,
-    EXTERN = 270,
-    FALSE = 271,
-    FLOAT = 272,
-    FOR = 273,
-    FN = 274,
-    IF = 275,
-    IN = 276,
-    INT = 277,
-    LET = 278,
-    LOOP = 279,
-    MATCH = 280,
-    MUT = 281,
-    PRINT = 282,
-    PRINTLN = 283,
-    PUB = 284,
-    RETURN = 285,
-    SELF = 286,
-    STATIC = 287,
-    STR = 288,
-    STRUCT = 289,
-    TRUE = 290,
-    USE = 291,
-    WHERE = 292,
-    WHILE = 293
+    KW_BOOL = 263,
+    KW_BREAK = 264,
+    KW_CHAR = 265,
+    KW_CONTINUE = 266,
+    KW_DO = 267,
+    KW_ELSE = 268,
+    KW_ENUM = 269,
+    KW_EXTERN = 270,
+    KW_FALSE = 271,
+    KW_FLOAT = 272,
+    KW_FOR = 273,
+    KW_FN = 274,
+    KW_IF = 275,
+    KW_IN = 276,
+    KW_LET = 277,
+    KW_LOOP = 278,
+    KW_MATCH = 279,
+    KW_MUT = 280,
+    KW_PRINT = 281,
+    KW_PRINTLN = 282,
+    KW_PUB = 283,
+    KW_RETURN = 284,
+    KW_SELF = 285,
+    KW_STATIC = 286,
+    KW_STR = 287,
+    KW_STRUCT = 288,
+    KW_TRUE = 289,
+    KW_USE = 290,
+    KW_WHERE = 291,
+    KW_WHILE = 292,
+    SELF_INCRE = 293,
+    SELF_DECRE = 294,
+    GRE_EQU = 295,
+    SMA_EQU = 296,
+    EQUAL_TO = 297,
+    NOT_EQUAL_TO = 298,
+    ANDAND = 299,
+    OROR = 300,
+    ADD_SELF = 301,
+    MINUS_SELF = 302,
+    MUL_SELF = 303,
+    DIV_SELF = 304,
+    UMINUS = 305,
+    UPLUS = 306
   };
 #endif
 /* Tokens.  */
@@ -89,37 +102,50 @@ extern int yydebug;
 #define STR_VAL 260
 #define ID_VAL 261
 #define BOOL_VAL 262
-#define BOOL 263
-#define BREAK 264
-#define CHAR 265
-#define CONTINUE 266
-#define DO 267
-#define ELSE 268
-#define ENUM 269
-#define EXTERN 270
-#define FALSE 271
-#define FLOAT 272
-#define FOR 273
-#define FN 274
-#define IF 275
-#define IN 276
-#define INT 277
-#define LET 278
-#define LOOP 279
-#define MATCH 280
-#define MUT 281
-#define PRINT 282
-#define PRINTLN 283
-#define PUB 284
-#define RETURN 285
-#define SELF 286
-#define STATIC 287
-#define STR 288
-#define STRUCT 289
-#define TRUE 290
-#define USE 291
-#define WHERE 292
-#define WHILE 293
+#define KW_BOOL 263
+#define KW_BREAK 264
+#define KW_CHAR 265
+#define KW_CONTINUE 266
+#define KW_DO 267
+#define KW_ELSE 268
+#define KW_ENUM 269
+#define KW_EXTERN 270
+#define KW_FALSE 271
+#define KW_FLOAT 272
+#define KW_FOR 273
+#define KW_FN 274
+#define KW_IF 275
+#define KW_IN 276
+#define KW_LET 277
+#define KW_LOOP 278
+#define KW_MATCH 279
+#define KW_MUT 280
+#define KW_PRINT 281
+#define KW_PRINTLN 282
+#define KW_PUB 283
+#define KW_RETURN 284
+#define KW_SELF 285
+#define KW_STATIC 286
+#define KW_STR 287
+#define KW_STRUCT 288
+#define KW_TRUE 289
+#define KW_USE 290
+#define KW_WHERE 291
+#define KW_WHILE 292
+#define SELF_INCRE 293
+#define SELF_DECRE 294
+#define GRE_EQU 295
+#define SMA_EQU 296
+#define EQUAL_TO 297
+#define NOT_EQUAL_TO 298
+#define ANDAND 299
+#define OROR 300
+#define ADD_SELF 301
+#define MINUS_SELF 302
+#define MUL_SELF 303
+#define DIV_SELF 304
+#define UMINUS 305
+#define UPLUS 306
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -134,7 +160,7 @@ union YYSTYPE
     string* sval;
     /* sym_table_id tabval; */
 
-#line 138 "y.tab.h" /* yacc.c:1909  */
+#line 164 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

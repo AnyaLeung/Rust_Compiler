@@ -1,63 +1,50 @@
 %{
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <map>
 #include <vector>
-#include "lex.yy.c"
 #include "symboltable.h"
 
-using namespaces std;
+using namespace std;
+int yyerror(string s);
+int yylex();
 %}
 
 %union{
-    int ival;
-    bool bval;
+    int val;
     double dval;
-    string sval;
+    bool bval;
+    /* string* sval; */
+    /* sym_table_id tabval; */
 }
 
-%token <ival> INT
-%token <dval> DOUBLE
-%token <sval> STRING
-%token <bval> BOOL
-%token <sval> ID
+%token <val> INT_VAL
+%token <dval> DOUBLE_VAL
+ /*%token <sval> STR_VAL*/
+%token <sval> ID_VAL
+%token <bval> BOOL_VAL
 
-
- /* keywords */
-%token BOOL
-%token BREAK
-%token CHAR
-%token CONTINUE
-%token DO
-%token ELSE
-%token ENUM
-%token EXTERN
-%token FALSE
-%token FLOAT
-%token FOR
-%token FN
-%token IF
-%token IN
-%token LET
-%token LOOP
-%token MATCH
-%token MUT
-%token PRINT
-%token PRINTLN
-%token PUB
-%token RETURN
-%token SELF
-%token STATIC
-%token STR
-%token STRUCT
-%token TRUE
-%token USE
-%token WHERE
-%token WHILE
+/* keywords */
+%token BOOL BREAK CHAR CONTINUE DO ELSE ENUM EXTERN FALSE FOR FN IF IN INT LET LOOP MATCH MUT PRINT
+%token PRINTLN PUB RETURN SELF STATIC STR STRUCT TRUE USE WHERE WHILE
  /* yacc declarations */
 %%
  /* grammar rules */
+expr: expr'+'INT
+    |expr'-'INT
+    |INT
+    ;
 %%
+ 
+int yyerror(string s){
+    cout << "wrong!" << endl;
+    /*cout << "Line " << linenum << s;
+    cout << " ,an error generated." << endl;
+    */
+    return 0;
+}
+
 int main(void){
     yyparse();
     return 0;

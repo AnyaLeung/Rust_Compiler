@@ -12,8 +12,8 @@ using namespace std;
 
 #define LIST  strcat(buf, yytext)
 #define token(t) {LIST; return yytext[0];}
-#define tokenInteger(t,i) {LIST; return yytext[0];}
-#define tokenString(t,s) {LIST; return yytext[0];}
+#define tokenInteger(t,i) {LIST; return INT_VAL;}
+ /*#define tokenString(t,s) {LIST; return STR_VAL;}*/
 #define PrintLine(b) {printf("%d:%s", linenum++, buf);}
 #define MAX_LINE_LENG 256
 
@@ -25,7 +25,7 @@ char strbuf[MAX_LINE_LENG];
  /* state */
 %x SIG_COMMENT
 %x MUL_COMMENT
-%x  STR
+%x STR_STA
 
 letter [A-Za-z]
 digit   [0-9]       
@@ -89,9 +89,9 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 
  /* ID--ok */
 {ID} {
-         Insert(yytext);
-         yylval.sval = new string(yytext);
-         tokenString(ID, yytext);
+         /*Insert(yytext);*/
+         /*tokenString(ID, yytext);*/
+         /*yylval.sval = new string(yytext); */
      }
 
  /* string--ok */
@@ -99,22 +99,22 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 <INITIAL>["] {
     LIST;
         strbuf[0] = '\0';
-            BEGIN STR;
+            BEGIN STR_STA;
             }
 
-<STR>\"\" {
+<STR_STA>\"\" {
     LIST;
         strcat(strbuf, "\"");
         }
 
-<STR>[^"]* {
+<STR_STA>[^"]* {
     LIST;
         strcat(strbuf, yytext);
         }
 
-<STR>["] {
+<STR_STA>["] {
     BEGIN INITIAL;
-        tokenString("string", strbuf);
+        /*tokenString("string", strbuf);*/
             strbuf[0] = '\0';
             }
  /* why use buf here makes <string:abc"> ???*/
@@ -125,7 +125,6 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
     LIST; 
     BEGIN SIG_COMMENT;
 }
-
 <SIG_COMMENT>"\n" {
     LIST;
     PrintLine(buf);
@@ -175,12 +174,13 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 }
 %%
 
- /*comments in lex starts with a whitespace*/
+ /*comments in lex starts with a whitespace
 int main(int argc, char *argv[]){
-    Create();
+    SymbolTable();
     yylex();
     printf("\nSymbol Table: \n");
     Dump();
     fflush(yyout);
     exit(0);
 }
+ */

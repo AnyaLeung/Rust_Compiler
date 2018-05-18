@@ -11,9 +11,9 @@
 using namespace std;
 
 #define LIST  strcat(buf, yytext)
-#define token(t) {LIST; return yytext[0];}
+#define token(t) {LIST; return t;}
 #define tokenInteger(t,i) {LIST; return INT_VAL;}
- /*#define tokenString(t,s) {LIST; return STR_VAL;}*/
+#define tokenString(t,s) {LIST; return STR_VAL;}
 #define PrintLine(b) {printf("%d:%s", linenum++, buf);}
 #define MAX_LINE_LENG 256
 
@@ -37,9 +37,10 @@ delimiters ","|":"|";"|"{"|"}"|"["|"]"|"("|")"
 ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|"+="|"-="|"*="|"/="
 
 %%
-{ops} {token(yytext);}
-{delimiters} {token(yytext);}
+{ops} {token(yytext[0]);}
+{delimiters} {token(yytext[0]);}
 
+ /* operator */
  /* keywords--ok */
 "bool" {token(BOOL);}
 "break" {token(BREAK);}
@@ -85,13 +86,13 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
 
 {real} {
     yylval.dval = atof(yytext);
-    token(REAL);}
+    /*token(REAL);*/}
 
  /* ID--ok */
 {ID} {
          /*Insert(yytext);*/
-         /*tokenString(ID, yytext);*/
-         /*yylval.sval = new string(yytext); */
+         tokenString(ID, yytext);
+         yylval.sval = new string(yytext);
      }
 
  /* string--ok */
@@ -173,14 +174,3 @@ ops "+"|"-"|"*"|"/"|"++"|"--"|"%"|"<"|"<="|">"|">="|"=="|"!="|"&&"|"||"|"!"|"="|
     exit(-1);
 }
 %%
-
- /*comments in lex starts with a whitespace
-int main(int argc, char *argv[]){
-    SymbolTable();
-    yylex();
-    printf("\nSymbol Table: \n");
-    Dump();
-    fflush(yyout);
-    exit(0);
-}
- */
